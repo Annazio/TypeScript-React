@@ -1,0 +1,59 @@
+import React, { useState } from 'react';
+
+interface SearchProps {
+  onSearch: (query: string) => void;
+}
+
+const Search: React.FC<SearchProps> = ({ onSearch }) => {
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+    onSearch(event.target.value); // Вызываем функцию обратного вызова при изменении запроса
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Введите запрос"
+        value={searchQuery}
+        onChange={handleInputChange}
+      />
+    </div>
+  );
+};
+
+export default Search;
+
+
+
+
+import React, { useState } from 'react';
+import Search from './Search';
+
+const MyComponent: React.FC = () => {
+  const [filteredData, setFilteredData] = useState<string[]>([]);
+  
+  // Функция, которая будет вызываться при изменении запроса поиска
+  const handleSearch = (query: string) => {
+    // Здесь вы можете выполнить фильтрацию данных согласно запросу
+    // Например, если у вас есть массив данных data, вы можете выполнить фильтрацию так:
+    // const filteredResults = data.filter(item => item.includes(query));
+    // Затем установите отфильтрованные результаты в состояние:
+    // setFilteredData(filteredResults);
+  };
+
+  return (
+    <div>
+      <h1>Моё приложение</h1>
+      <Search onSearch={handleSearch} />
+      {/* Отображение отфильтрованных результатов */}
+      {/* {filteredData.map((item, index) => (
+        <div key={index}>{item}</div>
+      ))} */}
+    </div>
+  );
+};
+
+export default MyComponent;
