@@ -1,0 +1,9 @@
+module.d.ts создать в src
+
+
+declare module "*.jpg"
+declare module "*.jpeg"
+declare module "*.png"
+
+или Global.d.ts 
+declare module '*.module.css'
