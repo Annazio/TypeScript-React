@@ -1,0 +1,59 @@
+import React, { useState, FormEvent } from 'react';
+
+interface Todo {
+  id: number;
+  text: string;
+}
+
+const AddTodoForm: React.FC<{ onAdd: (text: string) => void }> = ({ onAdd }) => {
+  const [inputText, setInputText] = useState<string>('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputText(e.target.value);
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!inputText.trim()) return; // Проверка на пустую строку
+    onAdd(inputText);
+    setInputText('');
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={inputText}
+        onChange={handleChange}
+        placeholder="Enter todo..."
+      />
+      <button type="submit">Add Todo</button>
+    </form>
+  );
+};
+
+const TodoList: React.FC = () => {
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const addTodo = (text: string) => {
+    const newTodo: Todo = {
+      id: Date.now(),
+      text: text
+    };
+    setTodos([...todos, newTodo]);
+  };
+
+  return (
+    <div>
+      <h2>Todo List</h2>
+      <ul>
+        {todos.map(todo => (
+          <li key={todo.id}>{todo.text}</li>
+        ))}
+      </ul>
+      <AddTodoForm onAdd={addTodo} />
+    </div>
+  );
+};
+
+export default TodoList;
