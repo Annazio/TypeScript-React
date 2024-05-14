@@ -26,11 +26,14 @@ const DropdownMenu: React.FC = () => {
 export default DropdownMenu;
 
 
-2 Compo
+2 Compo +CSS
 
+
+Part 1
 // DropdownMenu.tsx
 import React, { useState } from 'react';
 import DropdownMenuList from './DropdownMenuList';
+import './DropdownMenu.css'; // Подключаем файл стилей
 
 const DropdownMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -50,10 +53,12 @@ const DropdownMenu: React.FC = () => {
 };
 
 export default DropdownMenu;
-jsx
-Code kopieren
+
+Part 2
+
 // DropdownMenuList.tsx
 import React from 'react';
+import './DropdownMenu.css'; // Подключаем файл стилей
 
 interface DropdownMenuListProps {
   isOpen: boolean;
@@ -61,14 +66,42 @@ interface DropdownMenuListProps {
 
 const DropdownMenuList: React.FC<DropdownMenuListProps> = ({ isOpen }) => {
   return (
-    isOpen && (
-      <ul className="dropdown-menu">
-        <li>Пункт 1</li>
-        <li>Пункт 2</li>
-        <li>Пункт 3</li>
-      </ul>
-    )
+    <ul className={`dropdown-menu ${isOpen ? 'open' : ''}`}>
+      <li>Пункт 1</li>
+      <li>Пункт 2</li>
+      <li>Пункт 3</li>
+    </ul>
   );
 };
 
 export default DropdownMenuList;
+
+Part 3
+
+/* DropdownMenu.css */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  padding: 5px 0;
+  list-style: none;
+}
+
+.dropdown-menu.open {
+  display: block;
+}
