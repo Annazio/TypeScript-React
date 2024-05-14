@@ -24,3 +24,51 @@ const DropdownMenu: React.FC = () => {
 };
 
 export default DropdownMenu;
+
+
+2 Compo
+
+// DropdownMenu.tsx
+import React, { useState } from 'react';
+import DropdownMenuList from './DropdownMenuList';
+
+const DropdownMenu: React.FC = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div className="dropdown">
+      <button className="dropdown-toggle" onClick={toggleMenu}>
+        Меню
+      </button>
+      <DropdownMenuList isOpen={isOpen} />
+    </div>
+  );
+};
+
+export default DropdownMenu;
+jsx
+Code kopieren
+// DropdownMenuList.tsx
+import React from 'react';
+
+interface DropdownMenuListProps {
+  isOpen: boolean;
+}
+
+const DropdownMenuList: React.FC<DropdownMenuListProps> = ({ isOpen }) => {
+  return (
+    isOpen && (
+      <ul className="dropdown-menu">
+        <li>Пункт 1</li>
+        <li>Пункт 2</li>
+        <li>Пункт 3</li>
+      </ul>
+    )
+  );
+};
+
+export default DropdownMenuList;
