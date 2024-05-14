@@ -1,0 +1,130 @@
+// fetch('https://jsonplaceholder.typicode.com/users/1')
+//     .then(resp => resp.json())
+//     .then(data => console.log(data))
+
+
+
+
+      //  Считать айдишник
+    //  тот отправляет в свою очередь соответствующий сетевой запрос
+    //  получает данные и передает в рендер 
+    
+
+    const root = document.querySelector('#root');
+
+    function render({id, name, phone}){
+         const pId = document.createElement('p');
+         const pName = document.createElement('p');
+         const pPhone = document.createElement('p');
+         const container = document.createElement('div');
+         container.classList.add('item');
+
+         pId.innerText = id;
+         pName.innerText = name;
+         pPhone.innerText = phone;
+
+        container.append(pId, pName, pPhone);
+        root.append(container);
+    }
+
+    // render({
+    //     "id": 5,
+    //      "name": "anna",
+    //      "phone": 7580457590
+    // })
+
+
+    
+    const handler = async (id) => {
+         const resp = await fetch('https://jsonplaceholder.typicode.com/users/' + id);
+         const data = await resp.json();
+         const {name, phone} = data;
+         const result = {id, name, phone}
+         render(result)
+         console.log(result);
+     }
+
+
+     const form = document.querySelector('.add_user');
+  
+
+     form.addEventListener('submit', event => {
+     event.preventDefault();
+     const input = event.target.id.value;
+    handler(input);
+     })
+
+
+
+Part 1 fetch
+
+// const root = document.querySelector('#root');
+
+// function render({name, lastname, age}){
+//     const p = document.createElement('p');
+//     p.innerText = `${name} ${lastname} ${age}`;
+//     root.append(p)
+// }
+
+
+// fetch('http://127.0.0.1:5500/data/user.json')
+//     .then(function(resp) {
+//         return resp.json()
+//     })
+//     .then(function(data){
+//          render(data); 
+//     })
+
+    // const promise = new Promise(function(resolve, reject){
+    //     const result = Math.random();
+    //     if(result < 0.5) {
+    //         resolve;
+    //     }else{
+    //         reject();
+    //     }
+    // })
+
+    // promise.then(
+    //     () => console.log('alles gut'),
+    //     () => console.log('alles schlecht')
+    // )
+
+    // fetch('https://jsonplaceholder.typicode.com/users/3')
+    //      .then(function(resp){
+    //         return resp.json()
+    //      })
+    //      .then(function(data){
+    //         console.log({id})
+    //      })
+
+    
+   
+
+   
+
+
+    const root = document.querySelector('#root');
+
+    function render({name, email}){
+         const pName = document.createElement('p');
+         const pEmail = document.createElement('p');
+         const container = document.createElement('div');
+
+         pName.innerText = name;
+         pEmail.innerText = email;
+
+        container.append(pName, pEmail);
+        root.append(container);
+    }
+
+    
+
+
+    function getUser(id) {
+        fetch('https://jsonplaceholder.typicode.com/users/' + id)
+        .then(resp => resp.json())
+        .then(data => render(data))
+    }
+
+     getUser(10);
+  
